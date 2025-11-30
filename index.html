@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Importado - Moda con Estilo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Style Importado</a>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#ofertas">Ofertas</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Bienvenidos a Style Importado</h1>
+                <p>Descubre las últimas tendencias en moda con estilo único</p>
+                <a href="#ofertas" class="btn">Ver Ofertas</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="nosotros">
+        <div class="container">
+            <h2 class="section-title">Sobre Nosotros</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Nuestra Historia</h3>
+                    <p>En Style Importado creemos que la moda es una forma de expresión personal, y por eso nos dedicamos a traer las mejores tendencias directamente desde Estados Unidos hasta tu clóset en Perú. Nuestro emprendimiento nace de la pasión por la moda auténtica, la calidad y el deseo de ofrecer prendas originales a precios accesibles.</p>
+                    <p>Seleccionamos cuidadosamente cada pieza para garantizar que encuentres estilos modernos, versátiles y únicos. Trabajamos con proveedores confiables en EE. UU. y nos encargamos de todo el proceso de importación para que recibas productos 100% originales y en perfecto estado.</p>
+                    <p>Más que una tienda, somos una comunidad que busca inspirar confianza y ayudarte a construir un estilo propio. Queremos que cada compra sea una experiencia cómoda, segura y emocionante, desde que eliges tus prendas hasta que las recibes en casa.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sobre Style Importado">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offers Section -->
+    <section class="offers" id="ofertas">
+        <div class="container">
+            <h2 class="section-title">Ofertas Especiales</h2>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-image">
+                        <img src="images/vestido_noche.jpeg" alt="Oferta 1">
+                    </div>
+                    <div class="offer-info">
+                        <h3>Vestido de Noche</h3>
+                        <div class="price">S/50 <span class="discount">30% OFF</span></div>
+                        <p>Elegante vestido para ocasiones especiales. Disponible en varios colores.</p>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-image">
+                        <img src="images/conjunto.png" alt="Oferta 2">
+                    </div>
+                    <div class="offer-info">
+                        <h3>Conjunto Casual</h3>
+                        <div class="price">S/100 <span class="discount">25% OFF</span></div>
+                        <p>Perfecto para un look relajado pero con estilo.</p>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-image">
+                        <img src="images/zapatillas.jpeg" alt="Oferta 3">
+                    </div>
+                    <div class="offer-info">
+                        <h3>Zapatos de Moda</h3>
+                        <div class="price">S/100 <span class="discount">20% OFF</span></div>
+                        <p>Zapatos cómodos y a la moda para completar tu outfit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agregar esta sección justo antes del footer -->
+<section id="contacto-form" class="contact-form-section">
+    <div class="container">
+        <h2 class="section-title">Contáctanos</h2>
+        <div class="contact-form-container">
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <input type="text" id="nombre" name="nombre" required placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" required placeholder="Correo electrónico">
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="telefono" name="telefono" placeholder="Teléfono">
+                </div>
+                <div class="form-group">
+                    <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Mensaje"></textarea>
+                </div>
+                <button type="submit" class="btn">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Agregar este script justo antes del cierre de </body> -->
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Obtener los valores del formulario
+        const nombre = document.getElementById('nombre').value;
+        const email = document.getElementById('email').value;
+        const telefono = document.getElementById('telefono').value;
+        const mensaje = document.getElementById('mensaje').value;
+        
+        // Mostrar mensaje de confirmación
+        alert(`¡Gracias por tu mensaje, ${nombre}! Nos pondremos en contacto contigo pronto.`);
+        
+        // Limpiar el formulario
+        this.reset();
+    });
+    </script>
+
+
+    <!-- Footer -->
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Style Importado</h3>
+                    <p>Tu destino de moda con estilo único. Ofrecemos las últimas tendencias en ropa y accesorios importados de la mejor calidad.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f">f</i></a>
+                        <a href="#"><i class="fab fa-instagram">i</i></a>
+                        <a href="#"><i class="fab fa-whatsapp">w</i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul class="contact-info">
+                        <li><i>📞</i> +51 953 323 233</li>
+                        <li><i>✉️</i> style_importado@gmail.com</li>
+                        <li><i>📍</i> Av. Principal 123, Lima, Perú</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Horario de Atención</h3>
+                    <ul class="contact-info">
+                        <li>Lunes a Viernes: 9:00 AM - 8:00 PM</li>
+                        <li>Sábados: 10:00 AM - 6:00 PM</li>
+                        <li>Domingos: Cerrado</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Style Importado. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>

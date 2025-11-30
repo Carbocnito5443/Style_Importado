@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Style Importado</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos del carrito */
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1001;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .add-to-cart {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--secondary);
+        }
+
+        #cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        #cart-items li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        .catalog-section {
+            padding: 100px 0 50px;
+        }
+        
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .catalog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .catalog-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .catalog-image {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .catalog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .catalog-card:hover .catalog-image img {
+            transform: scale(1.05);
+        }
+        
+        .catalog-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .catalog-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .price {
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary);
+            font-size: 2.5rem;
+        }
+        
+        .category-title {
+            text-align: center;
+            color: var(--secondary);
+            margin: 60px 0 20px;
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">Style Importado</a>
+                <ul class="nav-links">
+                    <li><a href="index.html#inicio">Inicio</a></li>
+                    <li><a href="index.html#nosotros">Nosotros</a></li>
+                    <li><a href="index.html#ofertas">Ofertas</a></li>
+                    <li><a href="catalogo.html" class="active">Catálogo</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Icono del carrito -->
+    <div class="cart-icon" onclick="document.getElementById('cart-modal').style.display='block'">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span>
+    </div>
+
+    <!-- Modal del carrito -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('cart-modal').style.display='none'">&times;</span>
+            <h2>Carrito de Compras</h2>
+            <ul id="cart-items"></ul>
+            <p>Total: S/<span id="cart-total">0.00</span></p>
+            <button class="btn" onclick="checkout()">Pagar</button>
+        </div>
+    </div>
+
+    <!-- Catálogo Section -->
+    <main class="catalog-section">
+        <div class="container">
+            <h1 class="section-title">Nuestro Catálogo</h1>
+            
+            <!-- Sección de Mujeres -->
+            <h2 class="category-title">Para Ella</h2>
+            <div class="catalog-grid">
+                <!-- Producto 1 Mujer -->
+                <div class="catalog-card">
+                    <div class="catalog-image">
+                        <img src="images/m1.jpeg" alt="Vestido elegante">
+                    </div>
+                    <div class="catalog-info">
+                        <h3>Pantalones</h3>
+                        <div class="price">S/30.00</div>
+                        <p>Pantalones con detalles en encaje</p>
+                        <button class="add-to-cart" onclick="addToCart('Pantalones', 30.00)">Añadir al carrito</button>
+                    </div>
+                </div>
+                
+                <!-- Producto 2 Mujer -->
+                <div class="catalog-card">
+                    <div class="catalog-image">
+                        <img src="images/m2.jpeg" alt="Conjunto casual">
+                    </div>
+                    <div class="catalog-info">
+                        <h3>Tops de verano</h3>
+                        <div class="price">S/20.00</div>
+                        <p>Tops para un look moderno</p>
+                        <button class="add-to-cart" onclick="addToCart('Top', 20.00)">Añadir al carrito</button>
+                    </div>
+                </div>
+                
+                <!-- Producto 3 Mujer -->
+                <div class="catalog-card">
+                    <div class="catalog-image">
+                        <img src="images/m3.jpeg" alt="Blusa de verano">
+                    </div>
+                    <div class="catalog-info">
+                        <h3>Conjunto-vestido</h3>
+                        <div class="price">S/80.00</div>
+                        <p>Conjunto ideal para días calurosos</p>
+                        <button class="add-to-cart" onclick="addToCart('Conjunto-vestido', 80.00)">Añadir al carrito</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Hombres -->
+            <h2 class="category-title">Para Él</h2>
+            <div class="catalog-grid">
+                <!-- Producto 1 Hombre -->
+                <div class="catalog-card">
+                    <div class="catalog-image">
+                        <img src="images/h1.jpeg" alt="Camisa formal">
+                    </div>
+                    <div class="catalog-info">
+                        <h3>Polo con cuello</h3>
+                        <div class="price">S/30.00</div>
+                        <p>Polo con cuello de vestir en algodón premium</p>
+                        <button class="add-to-cart" onclick="addToCart('Polo con cuello', 30.00)">Añadir al carrito</button>
+                    </div>
+                </div>
+                
+                <!-- Producto 2 Hombre -->
+                <div class="catalog-card">
+                    <div class="catalog-image">
+                        <img src="images/h2.jpeg" alt="Pantalón de vestir">
+                    </div>
+                    <div class="catalog-info">
+                        <h3>Polo</h3>
+                        <div class="price">S/25.00</div>
+                        <p>Polo de algodó casual para el día a día</p>
+                        <button class="add-to-cart" onclick="addToCart('Polo', 25.00)">Añadir al carrito</button>
+                    </div>
+                </div>
+                
+                <!-- Producto 3 Hombre -->
+                <div class="catalog-card">
+                    <div class="catalog-image">
+                        <img src="images/h3.jpeg" alt="Chaqueta de cuero">
+                    </div>
+                    <div class="catalog-info">
+                        <h3>Polo con Estampado</h3>
+                        <div class="price">S/25.00</div>
+                        <p>Polo con estampado 100% algodón </p>
+                        <button class="add-to-cart" onclick="addToCart('Polo con Estampado', 25.00)">Añadir al carrito</button>
+                    </div>
+                </div>
+                
+                <!-- Producto 4 Hombre -->
+                <div class="catalog-card">
+                    <div class="catalog-image">
+                        <img src="images/h4.jpeg" alt="Saco deportivo">
+                    </div>
+                    <div class="catalog-info">
+                        <h3>Poleras </h3>
+                        <div class="price">S/55.00</div>
+                        <p>Poleras para un look casual elegante</p>
+                        <button class="add-to-cart" onclick="addToCart('Poleras', 55.00)">Añadir al carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Style Importado</h3>
+                    <p>Tu destino de moda con estilo único. Ofrecemos las últimas tendencias en ropa y accesorios importados de la mejor calidad.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f">f</i></a>
+                        <a href="#"><i class="fab fa-instagram">i</i></a>
+                        <a href="#"><i class="fab fa-whatsapp">w</i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul class="contact-info">
+                        <li><i>📞</i> +51 953 323 233</li>
+                        <li><i>✉️</i> style_importado@gmail.com</li>
+                        <li><i>📍</i> Av. Principal 123, Lima, Perú</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Horario de Atención</h3>
+                    <ul class="contact-info">
+                        <li>Lunes a Viernes: 9:00 AM - 8:00 PM</li>
+                        <li>Sábados: 10:00 AM - 6:00 PM</li>
+                        <li>Domingos: Cerrado</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Style Importado. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+<script>
+    let cart = [];
+
+    function addToCart(productName, price) {
+        cart.push({ name: productName, price: price });
+        updateCartCount();
+        updateCartModal();
+    }
+
+    function updateCartCount() {
+        const cartCount = document.getElementById('cart-count');
+        cartCount.textContent = cart.length;
+    }
+
+    function updateCartModal() {
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        let total = 0;
+        
+        cartItems.innerHTML = '';
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - S/${item.price.toFixed(2)}`;
+            cartItems.appendChild(li);
+            total += item.price;
+        });
+        
+        cartTotal.textContent = total.toFixed(2);
+    }
+
+    function checkout() {
+        if (cart.length === 0) {
+            alert('El carrito está vacío');
+            return;
+        }
+        alert('COMPRA REALIZADA, MUCHAS GRACIAS!');
+        cart = [];
+        updateCartCount();
+        updateCartModal();
+        document.getElementById('cart-modal').style.display = 'none';
+    }
+
+    // Cerrar el modal al hacer clic fuera de él
+    window.onclick = function(event) {
+        const modal = document.getElementById('cart-modal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
